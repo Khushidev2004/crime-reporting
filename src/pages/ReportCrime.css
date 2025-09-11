@@ -1,99 +1,248 @@
-.report-form-container {
-  display: flex;
-  justify-content: center;   /* horizontally center */
-  align-items: center;       /* vertically center */
-  height: 100vh;             /* full viewport height */
-  width: 100vw;              /* full viewport width */
-  background: linear-gradient(to right, #e3e7ee, #243b55);
-  padding: 0; /* extra padding remove so form stays centered */
+/* Reset and Global Styles */
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+body {
+  background: linear-gradient(135deg, #f0f4f8 0%, #e5e7eb 100%);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  color: #1f2937;
+  min-height: 100vh; /* Ensure body takes full viewport height */
+  overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+/* Report Form Container */
+.report-form-container {
+  width: 100vw;
+  min-height: 100vh; /* Ensure container fills viewport height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: inherit; /* Inherit body background to avoid gaps */
+}
+
+/* Report Box */
+.report-box {
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 600px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Heading */
+.report-box h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #111827;
+  text-align: center;
+  margin-bottom: 2rem;
+  background: linear-gradient(to right, #f97316, #eab308);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  color: #ffffff;
+}
+
+/* Form Styling */
 .report-form {
-  background: white;
-  padding: 40px;
-  border-radius: 12px;
-  width: 500px;
-  box-shadow: 0px 6px 15px rgba(55, 16, 186, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.report-form h2 {
-text-align: center;
-margin-bottom: 20px;
-color: #243b55;
-font-size: 26px;
+.report-form label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: #4b5563;
 }
 
-.report-form input,
+.report-form input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  accent-color: #2563eb;
+  cursor: pointer;
+}
+
+.report-form input[type="text"],
+.report-form input[type="number"],
+.report-form textarea,
+.report-form select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  color: #1f2937;
+  background: #f9fafb;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.report-form input[type="text"]:focus,
+.report-form input[type="number"]:focus,
+.report-form textarea:focus,
+.report-form select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+  outline: none;
+}
+
 .report-form textarea {
-width: 100%;
-padding: 12px;
-margin-bottom: 15px;
-border: 1px solid #d1d5db;
-border-radius: 8px;
-font-size: 14px;
-outline: none;
-transition: 0.3s;
+  min-height: 100px;
+  resize: vertical;
 }
 
-.report-form textarea {
-height: 100px;
-resize: none;
+.report-form select {
+  appearance: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23374151' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E") no-repeat right 0.75rem center;
+  padding-right: 2.5rem;
+  cursor: pointer;
 }
 
-.report-form input:focus,
-.report-form textarea:focus {
-border-color: #2563eb;
-box-shadow: 0 0 6px rgba(37, 99, 235, 0.3);
+/* Geo Row */
+.geo-row {
+  display: flex;
+  gap: 1rem;
 }
 
-.file-upload {
-margin-bottom: 15px;
-font-size: 14px;
-color: #374151;
+.geo-btn {
+  padding: 0.75rem 1.5rem;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.file-upload input {
-margin-top: 5px;
+.geo-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
 }
 
-.file-preview {
-margin-bottom: 15px;
-font-size: 14px;
-color: #16a34a;
+.geo-btn:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
 }
 
-.report-form button {
-width: 100%;
-background: #2563eb;
-color: white;
-padding: 12px;
-border: none;
-border-radius: 8px;
-font-size: 16px;
-cursor: pointer;
-transition: 0.3s;
+/* File Label */
+.file-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: #4b5563;
 }
 
-.report-form button:hover {
-background: #1e40af;
+.file-label input[type="file"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px dashed #e5e7eb;
+  border-radius: 0.5rem;
+  background: #f9fafb;
+  cursor: pointer;
 }
 
-.report-form button:disabled {
-background: #93c5fd;
-cursor: not-allowed;
+.file-label input[type="file"]:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
 }
 
-.error-message {
-color: red;
-margin-bottom: 10px;
-font-size: 14px;
-text-align: center;
+/* Submit Button */
+.report-form button[type="submit"] {
+  padding: 1rem;
+  background: #10b981;
+  color: #ffffff;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.success-message {
-color: green;
-margin-bottom: 10px;
-font-size: 14px;
-text-align: center;
+.report-form button[type="submit"]:hover:not(:disabled) {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+.report-form button[type="submit"]:disabled {
+  background: #6ee7b7;
+  cursor: not-allowed;
+}
+
+/* Error and Success Messages */
+.error {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.success {
+  background: #d1fae5;
+  color: #10b981;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .report-box {
+    padding: 1.5rem;
+  }
+
+  .report-box h2 {
+    font-size: 1.75rem;
+  }
+
+  .geo-row {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .geo-btn {
+    width: 100%;
+  }
+
+  .report-form input[type="text"],
+  .report-form input[type="number"],
+  .report-form textarea,
+  .report-form select {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .report-form-container {
+    padding: 1rem;
+  }
+
+  .report-box {
+    padding: 1rem;
+  }
+
+  .report-box h2 {
+    font-size: 1.5rem;
+  }
+
+  .report-form button[type="submit"] {
+    font-size: 1rem;
+  }
 }
