@@ -1,0 +1,99 @@
+.report-form-container {
+  display: flex;
+  justify-content: center;   /* horizontally center */
+  align-items: center;       /* vertically center */
+  height: 100vh;             /* full viewport height */
+  width: 100vw;              /* full viewport width */
+  background: linear-gradient(to right, #e3e7ee, #243b55);
+  padding: 0; /* extra padding remove so form stays centered */
+  margin: 0;
+}
+
+.report-form {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  width: 500px;
+  box-shadow: 0px 6px 15px rgba(55, 16, 186, 0.2);
+}
+
+.report-form h2 {
+text-align: center;
+margin-bottom: 20px;
+color: #243b55;
+font-size: 26px;
+}
+
+.report-form input,
+.report-form textarea {
+width: 100%;
+padding: 12px;
+margin-bottom: 15px;
+border: 1px solid #d1d5db;
+border-radius: 8px;
+font-size: 14px;
+outline: none;
+transition: 0.3s;
+}
+
+.report-form textarea {
+height: 100px;
+resize: none;
+}
+
+.report-form input:focus,
+.report-form textarea:focus {
+border-color: #2563eb;
+box-shadow: 0 0 6px rgba(37, 99, 235, 0.3);
+}
+
+.file-upload {
+margin-bottom: 15px;
+font-size: 14px;
+color: #374151;
+}
+
+.file-upload input {
+margin-top: 5px;
+}
+
+.file-preview {
+margin-bottom: 15px;
+font-size: 14px;
+color: #16a34a;
+}
+
+.report-form button {
+width: 100%;
+background: #2563eb;
+color: white;
+padding: 12px;
+border: none;
+border-radius: 8px;
+font-size: 16px;
+cursor: pointer;
+transition: 0.3s;
+}
+
+.report-form button:hover {
+background: #1e40af;
+}
+
+.report-form button:disabled {
+background: #93c5fd;
+cursor: not-allowed;
+}
+
+.error-message {
+color: red;
+margin-bottom: 10px;
+font-size: 14px;
+text-align: center;
+}
+
+.success-message {
+color: green;
+margin-bottom: 10px;
+font-size: 14px;
+text-align: center;
+}
