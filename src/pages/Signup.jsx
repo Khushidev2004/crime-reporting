@@ -10,6 +10,8 @@ function Signup() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const API = "http://localhost:5000"; // <-- Backend ka PORT sahi likha hai!
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -27,7 +29,7 @@ function Signup() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/auth/register", {
+      const res = await fetch(`http://localhost:5000/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password, role: "citizen" }),
@@ -36,10 +38,14 @@ function Signup() {
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.msg || "❌ Something went wrong");
+        setError(data.message || "Something went wrong"); // yahan message ya error ki spelling correct rakhi hai
       } else {
-        alert("✅ Account created successfully!");
+        alert(" Account created successfully!");
         console.log("Registered User:", data);
+        setName("");
+        setEmail("");
+        setPassword("");
+        setConfirmPassword("");
       }
     } catch (err) {
       setError("❌ Server error");

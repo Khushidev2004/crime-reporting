@@ -1,37 +1,47 @@
 import express from "express";
 import multer from "multer";
-import { getReports, createReport } from "../controllers/reportController.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import fs from "fs";
+import {
+  getReports,
+  createReport,
+  updateReportStatus,
+  deleteReport,
+} from "../controllers/reportController.js";
+import { protect, authorizeReports } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// Multer storage config
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const uploadFolder = path.join(__dirname, "..", "uploads");
-
-// ensure uploads folder exists (optional)
-import fs from "fs";
 if (!fs.existsSync(uploadFolder)) fs.mkdirSync(uploadFolder, { recursive: true });
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, uploadFolder);
-  },
-  filename: function (req, file, cb) {
+  destination: (req, file, cb) => cb(null, uploadFolder),
+  filename: (req, file, cb) => {
     const unique = Date.now() + "-" + Math.round(Math.random() * 1e9);
     const ext = path.extname(file.originalname);
     cb(null, `${unique}${ext}`);
-  }
+  },
 });
 
-const upload = multer({ storage });
+const fileFilter = (req, file, cb) => {
+  const allowed = ["image/jpeg", "image/jpg", "image/png", "application/pdf"];
+  if (allowed.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error("Invalid file format. Only JPEG, JPG, PNG, PDF are allowed."));
+  }
+};
 
-// GET all reports
-router.get("/", getReports);
+const upload = multer({ storage, limits: { fileSize: 5 * 1024 * 1024 }, fileFilter });
 
-// POST create report (with optional evidence file field name = "evidence")
+// Reports routes
+router.get("/", protect, authorizeReports, getReports);
 router.post("/", upload.single("evidence"), createReport);
+router.put("/:id/status", protect, authorizeReports, updateReportStatus);
+router.delete("/:id", protect, authorizeReports, deleteReport);
 
 export default router;

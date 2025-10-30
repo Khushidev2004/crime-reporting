@@ -27,13 +27,16 @@ function ReportCrime() {
       setError("Geolocation not supported by browser");
       return;
     }
-    navigator.geolocation.getCurrentPosition((pos) => {
-      setLat(pos.coords.latitude);
-      setLng(pos.coords.longitude);
-      setError("");
-    }, (err) => {
-      setError("Unable to get location: " + err.message);
-    });
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setLat(pos.coords.latitude);
+        setLng(pos.coords.longitude);
+        setError(""); // Clear error on success
+      },
+      (err) => {
+        setError("Unable to get location: " + err.message);
+      }
+    );
   };
 
   const handleSubmit = async (e) => {
@@ -41,8 +44,13 @@ function ReportCrime() {
     setError("");
     setSuccess("");
 
+    // Validation
     if (!title || !category || !location) {
-      setError("Please fill title, category and location");
+      setError("Please fill Title, Category and Location");
+      return;
+    }
+    if (!anonymous && !reporterName) {
+      setError("Reporter name is required when not anonymous");
       return;
     }
 
@@ -50,8 +58,8 @@ function ReportCrime() {
 
     try {
       const formData = new FormData();
-      formData.append("reporterName", reporterName);
-      formData.append("anonymous", anonymous);
+      formData.append("reporterName", reporterName || "Anonymous");
+      formData.append("anonymous", anonymous.toString());
       formData.append("title", title);
       formData.append("description", description);
       formData.append("category", category);
@@ -61,7 +69,7 @@ function ReportCrime() {
       if (lng) formData.append("lng", lng);
       if (evidence) formData.append("evidence", evidence);
 
-      const res = await fetch("/api/reports", {
+      const res = await fetch("http://localhost:5000/api/reports", {
         method: "POST",
         body: formData,
       });
@@ -70,15 +78,25 @@ function ReportCrime() {
       if (!res.ok) {
         setError(data.message || "Failed to submit report");
       } else {
-        setSuccess("Report submitted successfully");
-        // optional: redirect to dashboard after 1.2s
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 1000);
+        setSuccess("✅ Report submitted successfully");
+
+        // Reset form after success
+        setReporterName("");
+        setTitle("");
+        setDescription("");
+        setCategory("");
+        setPriority("Medium");
+        setLocation("");
+        setLat("");
+        setLng("");
+        setEvidence(null);
+
+        // Redirect after short delay
+        setTimeout(() => navigate("/dashboard"), 1200);
       }
     } catch (err) {
       console.error(err);
-      setError("Server error");
+      setError("⚠️ Server error");
     } finally {
       setSubmitting(false);
     }
@@ -94,7 +112,11 @@ function ReportCrime() {
 
         <form onSubmit={handleSubmit} className="report-form">
           <label>
-            <input type="checkbox" checked={anonymous} onChange={() => setAnonymous(!anonymous)} />
+            <input
+              type="checkbox"
+              checked={anonymous}
+              onChange={() => setAnonymous(!anonymous)}
+            />
             Report Anonymously
           </label>
 
@@ -159,12 +181,22 @@ function ReportCrime() {
               value={lng}
               onChange={(e) => setLng(e.target.value)}
             />
-            <button type="button" className="geo-btn" onClick={useBrowserLocation}>Use my location</button>
+            <button
+              type="button"
+              className="geo-btn"
+              onClick={useBrowserLocation}
+            >
+              Use my location
+            </button>
           </div>
 
           <label className="file-label">
             Evidence (image/pdf) - optional
-            <input type="file" accept="image/*,application/pdf" onChange={handleFileChange} />
+            <input
+              type="file"
+              accept="image/*,application/pdf"
+              onChange={handleFileChange}
+            />
           </label>
 
           <button type="submit" disabled={submitting}>
