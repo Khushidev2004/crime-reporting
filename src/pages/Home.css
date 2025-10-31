@@ -7,18 +7,18 @@ body {
 .home-container {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #1f2937;
-  padding-top: 60px; /* Match your navbar height exactly */
+  /* padding-top: 60px; Match your navbar height exactly */
 }
 
 /* Navbar Styles */
 .navbar {
-  background: linear-gradient(to right, #ff6b6b, #feca57, #ff9ff3);
+  background: linear-gradient(90deg, #2563eb, #60a5fa, #facc15);
   height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1rem;
-  position: fixed;
+  position: sticky;
   width: 100%;
   top: 0;
   z-index: 1000;
@@ -200,8 +200,8 @@ body {
 .hero-section {
   position: relative;
   height: 90vh;
-  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-              url("https://images.unsplash.com/photo-1508780709619-79562169bc64?auto=format&fit=crop&w=1600&q=80") no-repeat center center/cover;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6)), 
+              url("D:\\Uday\\Crime Reporting System\\crime-reporting\\src\\assets\\ChatGPT Image Oct 31, 2025, 09_24_55 PM.png") no-repeat center center/cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -224,7 +224,6 @@ body {
   color: #6366f1;          /* Bright violet-blue */
   font-size: 2.25rem;
   vertical-align: middle;
-  margin-right: 0.65rem;
 }
 
 /* Highlight text inside hero */
@@ -233,12 +232,15 @@ body {
   font-weight: bold;
   letter-spacing: 0.5px;
 }
+.highlightNearText{
+  color: #dddbdb;
+}
 
 .hero-text .subtitle {
   font-size: 18px;
   margin-bottom: 30px;
   line-height: 1.6;
-  color: #8b6475;          /* Muted bluish grey */
+  color: #ffff;          /* Muted bluish grey */
 }
 
 .hero-text h1 {
@@ -269,18 +271,18 @@ body {
   border: none;
   border-radius: 30px 0 0 30px;
   font-size: 16px;
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
+  background: rgba(255, 255, 255, 0.3);
+  color: rgb(255, 255, 255);
   transition: all 0.3s;
 }
 
 .search-input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255);
 }
 
 .search-input:focus {
   outline: none;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.4);
 }
 
 .search-button {
@@ -325,8 +327,9 @@ body {
 }
 
 .primary-btn:hover {
-  background: #fbbf24;
+  background: #F59E0B;
   transform: translateY(-3px);
+  color: #072781;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
@@ -337,7 +340,8 @@ body {
 }
 
 .secondary-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.6);
+  color: #1f2937;
   transform: translateY(-3px);
 }
 
@@ -517,7 +521,7 @@ body {
 
 .step-number {
   position: absolute;
-  top: -15px;
+  top: 5px;
   left: 50%;
   transform: translateX(-50%);
   background: #2563eb;

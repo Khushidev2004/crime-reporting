@@ -59,7 +59,7 @@ function Home() {
           <div className="hero-text">
             <h1>
               <FaFire className="hero-icon" />
-              <span className="highlight">Safeguard</span> Your Community
+              <span className="highlight">Safeguard</span> <span className="highlightNearText">Your Community</span>
             </h1>
             <p className="subtitle">A comprehensive platform for crime reporting, safety monitoring, and community engagement</p>
             <div className="search-container">
